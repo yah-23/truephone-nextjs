@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
-import { Box, Center } from '@chakra-ui/react'
+import { ReactNode } from 'react'
+import { Center } from '@chakra-ui/react'
 import Head from 'next/head'
 
-import Nav from '../Nav';
+import Nav from '../Nav'
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -11,18 +11,14 @@ const Layout = ({ children }: { children: ReactNode }) => {
         <title>Truephone</title>
       </Head>
       <Nav />
-      <Center 
-        bg={'gray.100'} 
-        w={'100vw'}
-        h={'100vh'}
-      >
-        <Center 
+      <Center bg={'gray.100'} w={'100vw'} h={'100vh'}>
+        <Center
           bg={'white'}
           w={'59vw'}
           minH={'52vh'}
           borderRadius={'10px'}
           border={'4px'}
-          borderColor={'purple.700'}
+          borderColor={'blue.700'}
           py={'35px'}
         >
           {children}
@@ -31,6 +27,5 @@ const Layout = ({ children }: { children: ReactNode }) => {
     </>
   )
 }
-
 
 export default Layout
