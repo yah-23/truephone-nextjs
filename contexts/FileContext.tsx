@@ -8,35 +8,47 @@ const delay = (amount = 1000) =>
 
 type FileContextType = {
   loading: boolean
-  validateFile: (file) => Promise<void>
+  validateFile: (files: File[]) => Promise<void>
+  file: File | null
+  total: number
+  validatedData: ValidatedMessage[]
+}
+
+type ValidatedMessage = {
+  phone: string
+  message: string
+  valid: boolean
 }
 
 export const FileContext = createContext({} as FileContextType)
 
 export const FileProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false)
+  const [total, setTotal] = useState(0)
+  const [file, setFile] = useState<File | null>(null)
+  const [validatedData, setValidatedData] = useState<ValidatedMessage[]>([])
 
-  const validateFile = async (file) => {
+  const validateFile = async (files: File[]) => {
+    setLoading(true)
+    await delay()
     const formData = new FormData()
-    formData.append('file', file)
+    formData.append('file', files[0])
+    setFile(files[0])
 
-    try {
-      const response = await api.post('/files/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data; boundary=xxx',
-        },
-      })
-    } catch (error) {
-      console.log('-------')
-      console.log(error)
-    }
-    // setLoading(true)
-    // await delay()
-    // Router.push('/file-send')
-    // setLoading(false)
+    const { data } = await api.post('/files/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data; boundary=xxx',
+      },
+    })
+    setTotal(data.filter((el: ValidatedMessage) => el.valid).length)
+    setValidatedData(data)
+    Router.push('/file-send')
+    setLoading(false)
   }
   return (
-    <FileContext.Provider value={{ validateFile, loading }}>
+    <FileContext.Provider
+      value={{ validateFile, loading, file, total, validatedData }}
+    >
       {children}
     </FileContext.Provider>
   )
