@@ -4,11 +4,12 @@ import { useContext } from 'react'
 
 import Layout from '../components/Layout'
 import Loading from '../components/Loading'
+import DropzoneComponent from '../components/Dropzone'
 
 import { FileContext } from '../contexts/FileContext'
 
 const Home: NextPage = () => {
-  const { loading, validateFile } = useContext(FileContext)
+  const { loading } = useContext(FileContext)
   return (
     <Layout>
       {loading ? (
@@ -19,7 +20,9 @@ const Home: NextPage = () => {
             <Heading fontSize={'4xl'} py={'2'}>
               Verifique a validade de uma lista de mensagens 👍
             </Heading>
-            <Button onClick={() => validateFile()}>Selecionar Lista</Button>
+            <DropzoneComponent>
+              <Button>Selecionar Lista</Button>
+            </DropzoneComponent>
             <Heading fontSize={'lg'}>
               Selecione um arquivo CSV para iniciar a verificação de uma lista
               com números e mensagens de SMS.
