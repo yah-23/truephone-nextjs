@@ -6,6 +6,7 @@ const theme = extendTheme(
       gray: {
         100: '#E5E5E5',
         300: '#d3d8dd',
+        500: '#747474',
       },
       blue: {
         700: '#3D3ADA',
@@ -23,6 +24,13 @@ const theme = extendTheme(
             px: 7,
             fontSize: 'lg',
             lineHeight: 'short',
+          },
+          outline: {
+            color: 'gray.500',
+            fontSize: 'lg',
+            lineHeight: 'short',
+            py: 6,
+            px: 5,
           },
         },
       },

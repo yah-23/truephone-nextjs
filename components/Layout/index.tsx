@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Center } from '@chakra-ui/react'
+import { Center, Box } from '@chakra-ui/react'
 import Head from 'next/head'
 
 import Nav from '../Nav'
@@ -11,19 +11,26 @@ const Layout = ({ children }: { children: ReactNode }) => {
         <title>Truephone</title>
       </Head>
       <Nav />
-      <Center bg={'gray.100'} w={'100vw'} h={'100vh'}>
-        <Center
-          bg={'white'}
-          w={'59vw'}
-          minH={'52vh'}
-          borderRadius={'10px'}
-          border={'4px'}
-          borderColor={'blue.700'}
-          py={'35px'}
-        >
-          {children}
+      <Box
+        bg={'gray.100'}
+        w={'full'}
+        minH={'100vh'}
+        pt={40}
+        px={[2, 6, 20, 60]}
+      >
+        <Center>
+          <Center
+            bg={'white'}
+            minH={'52vh'}
+            borderRadius={'10px'}
+            border={'4px'}
+            borderColor={'blue.700'}
+            py={'35px'}
+          >
+            {children}
+          </Center>
         </Center>
-      </Center>
+      </Box>
     </>
   )
 }

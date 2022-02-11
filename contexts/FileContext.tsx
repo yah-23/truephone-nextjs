@@ -12,6 +12,8 @@ type FileContextType = {
   file: File | null
   total: number
   validatedData: ValidatedMessage[]
+  handleToHome: () => void
+  handleSaveFile: () => Promise<void>
 }
 
 type ValidatedMessage = {
@@ -45,9 +47,36 @@ export const FileProvider = ({ children }: { children: ReactNode }) => {
     Router.push('/file-send')
     setLoading(false)
   }
+
+  const handleToHome = () => {
+    Router.push('/')
+    setLoading(false)
+    setTotal(0)
+    setFile(null)
+    setValidatedData([])
+  }
+
+  const handleSaveFile = async () => {
+    const body = {
+      data: validatedData,
+      file,
+    }
+    const { status } = await api.post('/files/save', body)
+    if (status == 201) {
+      Router.push('/file-save')
+    }
+  }
   return (
     <FileContext.Provider
-      value={{ validateFile, loading, file, total, validatedData }}
+      value={{
+        validateFile,
+        loading,
+        file,
+        total,
+        validatedData,
+        handleToHome,
+        handleSaveFile,
+      }}
     >
       {children}
     </FileContext.Provider>
